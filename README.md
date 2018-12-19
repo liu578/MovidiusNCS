@@ -7,6 +7,7 @@ I can get MobileNet running at 6.5 FPS in raspberry pi, while yolo can only run 
 The general idea has two steps.
 1. compile the pre-trained TensorFlow models or Caffe models into a graph file for Neural Stick
 2. write a python script to run the model and do the prediction
+3. set up a local server to reply HTTP request with JSON as inference result
 
 The input and output of the graph file is same as the original model
 
