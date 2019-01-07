@@ -68,7 +68,7 @@ while True:
 
         label = '{}:{:.0f}%'.format(clss,conf*100)
         image = cv2.rectangle(image,(x1,y1),(x2,y2),color,2)
-        y = y1 - 5 if y1 - 15 > 15else y1 + 18
+        y = y1 - 5 if y1 - 15 > 15 else y1 + 18
         image = cv2.putText(image,label,(x1-5,y),cv2.FONT_HERSHEY_SIMPLEX,0.8,color,2)
 #         print(clss,conf)
     cv2.imshow('frame',image)
