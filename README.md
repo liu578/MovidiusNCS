@@ -1,4 +1,4 @@
-# IoT Based Object Detection
+# IoT Based Object Detection
 #### *Key words:  Movidius, Raspberry Pi, Flask Backend*
 
 ### Introduction
@@ -11,7 +11,7 @@ In this project, I generall use Movidius NCS along with Raspberry Pi to  deploy 
 
 Based on machine learning models, I used both Caffe and TensorFlow pretrained models. I can get MobileNet model running at 6.5 FPS in raspberry pi, while yolo can only run at 2 fps. MobileNet is pretty good considering raspberry hardware.
 
-Caffe ssd_mobilenet model is intended to do object detection task. It can recogninze 21 classes and support generating real time bounding boxes for classification. While TensorFlow  mobilenet model doesn't support generating bounding boxes but it support recognizing 1000 classes of objects as compensation. It's designed to do image classification task. 
+Caffe ssd_mobilenet model is intended to do object detection task. It can recogninze 21 classes and support generating real time bounding boxes for classification. While TensorFlow  mobilenet model doesn't support generating bounding boxes but it support recognizing 1000 classes of objects as compensation. It's designed to do image classification task.
 
 
 ##### About the model input and output
@@ -35,12 +35,12 @@ output[i] : prediction confidence for class i
 
 
 
-### General Steps 
+### General Steps
 
 1. compile the pre-trained TensorFlow models or Caffe models into a graph file for Neural Stick
 2. write python scripts to run the model and do the prediction
 3. set up a flask server to provide inference service by replying requests with JSON response
-4. design a simple frontend page to make AJAX requests  
+4. design a simple frontend page to make AJAX requests
 
 
 ### Some Result about Inference:
@@ -66,7 +66,7 @@ Raspberry pi: 11.5 FPS
 
 1.I tested both aiohttp and flask backend frameworks, flask backend is easier to use while aiohttp may be more powerful for combination of inference services and streaming service as concurrent in the future. Currently I mainly used flask for quick prototype
 
-2.Frontend is a simple single-page app, each time the user click the snapshot button, an AJAX request is sended to the backend, while backend will 
+2.Frontend is a simple single-page app, each time the user click the snapshot button, an AJAX request is sended to the backend, while backend will
 take a snapshot immediately and do the inference to the image, and send back the result as a JSON response to the frontend. Each time a user click the snapshot button, a new photo took and a new inference result will be responsed.
 
 3.Any devices can visit the flask server and make a request through the web browser. Users can set the camera with the raspberry pi any where because they are very low-power and portable.
