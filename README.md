@@ -1,10 +1,12 @@
-# IoT Based Object Detection 
+#  IoT Based Object Detection 
 
 #### *Key words:  Movidius, Raspberry Pi, Flask Backend*
 
 ### Introduction
 Movidius NCS is Intel's framework to provide inference service on edge devices like Raspberry Pi, it works well with Intel's Neural Stick.
 It takes Caffe and TensorFlow trained models and load it into embedded devices for machine learning inference tasks.
+
+![alt text](https://cdn-images-1.medium.com/max/1600/1*sPZNuScv3C93RsCfONjWUg.jpeg)
 
 In this project, I generall use Movidius NCS along with Raspberry Pi to  deploy a small AI backend server to provide service for user of local networks.
 
@@ -59,13 +61,18 @@ ubuntu : 20 FPS
 Raspberry pi: 11.5 FPS
 
 ![alt text](https://github.com/liu578/MovidiusNCS/blob/master/tensorflow/results/Screenshot%20from%202018-12-06%2013-54-41.png?raw=true)
-![alt text](https://github.com/liu578/MovidiusNCS/blob/master/tensorflow/results/Screenshot%20from%202018-12-06%2013-54-41.png?raw=true)
 ![alt text](https://github.com/liu578/MovidiusNCS/blob/master/tensorflow/results/Screenshot%20from%202018-12-06%2013-41-20.png?raw=true)
 
 ### Web Service
 
-1. I tested both aiohttp and flask backend frameworks, flask backend is easier to use while aiohttp may be more powerful for combination of inference services and streaming service as concurrent in the future
-2. Frontend is a simple single-page app, each time the user click the snapshot button, an AJAX request is sended to the backend, while backend will 
-take a snapshot immediately and do the inference to the image, and send back the result as a JSON response to the frontend
+1.I tested both aiohttp and flask backend frameworks, flask backend is easier to use while aiohttp may be more powerful for combination of inference services and streaming service as concurrent in the future. Currently I mainly used flask for quick prototype
+
+2.Frontend is a simple single-page app, each time the user click the snapshot button, an AJAX request is sended to the backend, while backend will 
+take a snapshot immediately and do the inference to the image, and send back the result as a JSON response to the frontend. Each time a user click the snapshot button, a new photo took and a new inference result will be responsed.
+
+3.Any devices can visit the flask server and make a request through the web browser. Users can set the camera with the raspberry pi any where because they are very low-power and portable.
 
 ![alt text](https://github.com/liu578/MovidiusNCS/blob/master/tensorflow/results/Screen%20Shot%202019-01-07%20at%203.19.23%20AM.png?raw=true)
+
+### Future Plan
+In the future I am gonna design a new web backend to do realtime streaming as well as realtime inference. I will use the Caffe ssd_mobilenet model for inference and set up a powerful backend to do concurrent tasks. Raspberry Pi is more powerful than I thought, I want to make the most of it and let it act as a local AI service center, providing AI services to local users.
