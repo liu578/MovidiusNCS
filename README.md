@@ -1,5 +1,4 @@
-#  IoT Based Object Detection
-
+# IoT Based Object Detection
 #### *Key words:  Movidius, Raspberry Pi, Flask Backend*
 
 ### Introduction
