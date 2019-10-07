@@ -11,6 +11,7 @@ CLASSES = ('background','aeroplane', 'bicycle', 'bird', 'boat',
            'sheep', 'sofa', 'train', 'tvmonitor')
 
 
+
 input_size = (300,300)
 np.random.seed(3)
 colors = 255 * np.random.rand(len(CLASSES),3)
@@ -38,9 +39,7 @@ def preprocess(src):
 #graph => load the iamge to it,return a prediction
 capture = cv2.VideoCapture(0)
 _,image = capture.read()
-
-image = cv2.imread(IMAGE)
-height,width = image.shape[:2]
+width, height = int(capture.get(3)), int(capture.get(4))
 # print(height,width)
 # h_factor = height/input_size[0]
 # w_factor = width/input_size[1]
@@ -49,7 +48,7 @@ while True:
     stime = time.time()
     _,image = capture.read()
     image_pro = preprocess(image)
-    # print(image_pro.shape[:2])
+    #print(image_pro.shape[:2])
     graph.LoadTensor(image_pro,None)
     output,_ = graph.GetResult()
 
@@ -63,16 +62,17 @@ while True:
         color = colors[int(output[i+1])]
         x1 = max(0,int(output[i+3] * width))
         y1 = max(0,int(output[i+4] * height))
-        x2 = max(width,int(output[i+5] * width))
-        y2 = max(height,int(output[i+6] * height))
+        x2 = min(width,int(output[i+5] * width))
+        y2 = min(height,int(output[i+6] * height))
 
         label = '{}:{:.0f}%'.format(clss,conf*100)
         image = cv2.rectangle(image,(x1,y1),(x2,y2),color,2)
-        y = y1 - 5 if y1 - 15 > 15 else y1 + 18
+        y = y1 - 5 if y1 - 15 > 15else y1 + 18
         image = cv2.putText(image,label,(x1-5,y),cv2.FONT_HERSHEY_SIMPLEX,0.8,color,2)
 #         print(clss,conf)
+    lebelfps = 'FPS: {:.1f}'.format(1/(time.time()- stime))
+    image = cv2.putText(image,lebelfps,(0,470),cv2.FONT_HERSHEY_SIMPLEX,0.8,colors[-2],2)   
     cv2.imshow('frame',image)
-    print('FPS = {:.1f}'.format(1/(time.time()- stime)))
     if cv2.waitKey(1)&0xff == ord('q'):
         break
 capture.release()
